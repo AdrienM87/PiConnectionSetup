@@ -14,9 +14,23 @@ namespace PiConSetup
         private const string nameDriveFormat = "FAT32";
         private const string nameFileSSH = "ssh";
         private const string nameFileWifi = "wpa_supplicant.conf";
-        private const string nameBoxWifi = "WifiBoxName";   //to replace
-        private const string passBoxWifi = "Password";  //to replace
-        private static string textFileWifi = "country=fr" + Environment.NewLine +
+        private static string textFileWifi;
+        private static string nameBoxWifi;
+        private static string passBoxWifi;
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("#######################################");
+            Console.WriteLine("--- Welcome to Pi connections setup ---");
+            Console.WriteLine("");
+            Console.WriteLine("- Actual settings :");
+            Console.WriteLine("-----------------");
+            Console.WriteLine("- wifi name = " + Properties.Resources.nameBoxWifi);
+            Console.WriteLine("- processing");
+
+            nameBoxWifi = Properties.Resources.nameBoxWifi;
+            passBoxWifi = Properties.Resources.passBoxWifi;
+            textFileWifi = "country=fr" + Environment.NewLine +
                     "update_config=1" + Environment.NewLine +
                     "ctrl_interface=/var/run/wpa_supplicant" + Environment.NewLine + Environment.NewLine +
                     "network={" + Environment.NewLine +
@@ -25,8 +39,6 @@ namespace PiConSetup
                     "psk=\"" + passBoxWifi + "\"" + Environment.NewLine +
                     "}";
 
-        static void Main(string[] args)
-        {
             bool resultDrive;
 
             string nameDrive = ClassFile.GetNameDriveBoot(nameDriveBoot, nameDriveFormat);
@@ -62,8 +74,9 @@ namespace PiConSetup
                 {
                     Console.WriteLine("- Fonction Wifi n'a pas pu être activée correctement.");
                 }
-            }    
-            Console.WriteLine("Terminé.");
+            }
+            Console.WriteLine("- Terminé.");
+            Console.WriteLine("#######################################");
             Console.ReadKey();
         }
 
