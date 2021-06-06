@@ -27,36 +27,42 @@ namespace PiConSetup
 
         static void Main(string[] args)
         {
+            bool resultDrive;
+
             string nameDrive = ClassFile.GetNameDriveBoot(nameDriveBoot, nameDriveFormat);
             if (nameDrive != null)
             {
                 Console.WriteLine("- Nom du lecteur boot = " + nameDrive);
+                resultDrive = true;
             }
             else
             {
                 Console.WriteLine("- Nom du lecteur boot n'as pas pu être récupéré.");
+                resultDrive = false;
             }
 
-            bool resultSSH = ActivateSSH(nameDrive + nameFileSSH);
-            if (resultSSH)
+            if (resultDrive)
             {
-                Console.WriteLine("- Fonction SSH activée avec succès.");
-            }
-            else
-            {
-                Console.WriteLine("- Fonction SSH n'a pas pu être activée correctement.");
-            }
+                bool resultSSH = ActivateSSH(nameDrive + nameFileSSH);
+                if (resultSSH)
+                {
+                    Console.WriteLine("- Fonction SSH activée avec succès.");
+                }
+                else
+                {
+                    Console.WriteLine("- Fonction SSH n'a pas pu être activée correctement.");
+                }
 
-            bool resultWifi = ActivateWifi(nameDrive + nameFileWifi);
-            if (resultWifi)
-            {
-                Console.WriteLine("- Fonction Wifi activée avec succès.");
-            }
-            else
-            {
-                Console.WriteLine("- Fonction Wifi n'a pas pu être activée correctement.");
-            }
-
+                bool resultWifi = ActivateWifi(nameDrive + nameFileWifi);
+                if (resultWifi)
+                {
+                    Console.WriteLine("- Fonction Wifi activée avec succès.");
+                }
+                else
+                {
+                    Console.WriteLine("- Fonction Wifi n'a pas pu être activée correctement.");
+                }
+            }    
             Console.WriteLine("Terminé.");
             Console.ReadKey();
         }
